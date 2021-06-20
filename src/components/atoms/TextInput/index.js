@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     color: '#020202',
   },
   hideAndShow: {
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
     alignItems: 'center',
     justifyContent: 'center',
   },

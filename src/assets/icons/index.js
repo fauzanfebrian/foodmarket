@@ -13,6 +13,7 @@ import ICMin from './btn_min.svg';
 import ICNext from './icon-next.svg';
 import ICShowPassword from './show-password.svg';
 import ICHidePassword from './hide-password.svg';
+import ICClose from './close-icon.svg';
 
 export {
   ICBack,
@@ -30,4 +31,5 @@ export {
   ICNext,
   ICShowPassword,
   ICHidePassword,
+  ICClose,
 };

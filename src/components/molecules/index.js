@@ -11,6 +11,8 @@ import Counter from './Counter';
 import ItemValue from './ItemValue';
 import ItemListMenu from './ItemListMenu';
 import Loading from './Loading';
+import Number from './Number';
+import WebScreen from './WebScreen';
 
 export {
   Header,
@@ -26,4 +28,6 @@ export {
   ItemValue,
   ItemListMenu,
   Loading,
+  Number,
+  WebScreen,
 };

@@ -1,102 +1,99 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import React, {useEffect} from 'react';
+import {ScrollView, StyleSheet, Text, useWindowDimensions} from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import {useDispatch, useSelector} from 'react-redux';
 import {Gap, ItemListFood} from '../..';
-import {FoodDummy1, FoodDummy2, FoodDummy3, FoodDummy4} from '../../../assets';
+import {getInProgress, getPastOrders} from '../../../redux/action';
 
 const InProgress = () => {
   const navigation = useNavigation();
-
+  const dispastch = useDispatch();
+  const {inProgress} = useSelector(state => state.orderReducer);
+  useEffect(() => {
+    dispastch(getInProgress());
+  }, []);
+  const contentMap = ({food, user, ...order}) => {
+    const driver = 25000;
+    const totalPrice = order.quantity * food.price;
+    const tax = (2.5 / 100) * totalPrice;
+    const total = driver + totalPrice + tax;
+    const data = {
+      item: food,
+      transaction: {
+        totalItem: order.quantity,
+        totalPrice,
+        driver,
+        tax,
+        total,
+        status: order.status,
+        id: order.id,
+      },
+      userProfile: user,
+    };
+    return (
+      <ItemListFood
+        key={order.id}
+        name={food.name}
+        onPress={() => navigation.navigate('OrderDetail', data)}
+        image={{uri: food.picturePath}}
+        type="in-progress"
+        price={order.total}
+        items={order.quantity}
+      />
+    );
+  };
   return (
     <ScrollView style={styles.content}>
       <Gap height={8} />
-      <ItemListFood
-        name="Sop Buntut"
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={FoodDummy1}
-        type="in-progress"
-        price="180.000"
-        items={15}
-      />
-      <ItemListFood
-        name="Sop Buntut"
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={FoodDummy2}
-        type="in-progress"
-        price="180.000"
-        items={15}
-      />
-      <ItemListFood
-        name="Sop Buntut"
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={FoodDummy3}
-        type="in-progress"
-        price="180.000"
-        items={15}
-      />
-      <ItemListFood
-        name="Sop Buntut"
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={FoodDummy4}
-        type="in-progress"
-        price="180.000"
-        items={15}
-      />
+      {inProgress && inProgress.map(order => contentMap(order))}
     </ScrollView>
   );
 };
 
 const PastOrders = () => {
   const navigation = useNavigation();
-
+  const dispastch = useDispatch();
+  const {pastOrders} = useSelector(state => state.orderReducer);
+  useEffect(() => {
+    dispastch(getPastOrders());
+  }, []);
+  const contentMap = ({food, user, ...order}) => {
+    const driver = 25000;
+    const totalPrice = order.quantity * food.price;
+    const tax = (2.5 / 100) * totalPrice;
+    const total = driver + totalPrice + tax;
+    const data = {
+      item: food,
+      transaction: {
+        totalItem: order.quantity,
+        totalPrice,
+        driver,
+        tax,
+        total,
+        status: order.status,
+        id: order.id,
+      },
+      userProfile: user,
+    };
+    return (
+      <ItemListFood
+        key={order.id}
+        name={food.name}
+        onPress={() => navigation.navigate('OrderDetail', data)}
+        image={{uri: food.picturePath}}
+        type="past-orders"
+        price={order.total}
+        items={order.quantity}
+        time={order.updated_at}
+        status={order.status}
+      />
+    );
+  };
   return (
     <ScrollView style={styles.content}>
       <Gap height={8} />
-      <ItemListFood
-        name="Sop Buntut"
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={FoodDummy4}
-        type="past-orders"
-        time="Mei 2, 09:00"
-        price="180.000"
-        items={15}
-      />
-      <ItemListFood
-        name="Sop Buntut"
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={FoodDummy3}
-        type="past-orders"
-        time="Mei 2, 09:00"
-        price="180.000"
-        items={15}
-      />
-      <ItemListFood
-        name="Sop Buntut"
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={FoodDummy1}
-        type="past-orders"
-        time="Mei 2, 09:00"
-        status="Cancelled"
-        price="180.000"
-        items={15}
-      />
-      <ItemListFood
-        name="Sop Buntut"
-        onPress={() => navigation.navigate('OrderDetail')}
-        image={FoodDummy2}
-        type="past-orders"
-        time="Mei 2, 09:00"
-        status="Canceled"
-        price="180.000"
-        items={15}
-      />
+      {pastOrders.map(order => contentMap(order))}
     </ScrollView>
   );
 };

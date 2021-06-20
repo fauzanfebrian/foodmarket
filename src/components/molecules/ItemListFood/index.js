@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import Number from '../Number';
 import Rating from '../Rating';
 
 const ItemListFood = ({
@@ -20,7 +21,7 @@ const ItemListFood = ({
           <>
             <View>
               <Text style={styles.name}>{name}</Text>
-              <Text style={styles.desc}>IDR {price}</Text>
+              <Number number={price} style={styles.desc} />
             </View>
             <View style={styles.starContainer}>
               <Rating rating={rating} />
@@ -32,7 +33,7 @@ const ItemListFood = ({
           <>
             <View>
               <Text style={styles.name}>{name}</Text>
-              <Text style={styles.desc}>IDR {price}</Text>
+              <Number number={price} style={styles.desc} />
             </View>
             <View style={styles.starContainer}>
               <Text style={styles.desc}>{items} items</Text>
@@ -44,24 +45,29 @@ const ItemListFood = ({
           <>
             <View>
               <Text style={styles.name}>{name}</Text>
-              <Text style={styles.desc}>
-                {items} items • IDR {price}
-              </Text>
+              <View style={styles.row}>
+                <Text style={styles.desc}>{items} items • </Text>
+                <Number number={price} style={styles.desc} />
+              </View>
             </View>
           </>
         );
       case 'past-orders':
+        const formatedTime = new Date(time);
         return (
           <>
             <View>
               <Text style={styles.name}>{name}</Text>
-              <Text style={styles.desc}>
-                {items} items • IDR {price}
-              </Text>
+              <View style={styles.row}>
+                <Text style={styles.desc}>{items} items • </Text>
+                <Number number={price} style={styles.desc} />
+              </View>
             </View>
             <View style={styles.starContainer}>
-              {time && <Text style={styles.time}>{time}</Text>}
-              {status && <Text style={styles.status}>{status}</Text>}
+              {time && (
+                <Text style={styles.time}>{formatedTime.toDateString()}</Text>
+              )}
+              {status && <Text style={styles.status(status)}>{status}</Text>}
             </View>
           </>
         );
@@ -111,5 +117,10 @@ const styles = StyleSheet.create({
   name: {fontSize: 16, color: '#020202', fontFamily: 'Poppins-Regular'},
   desc: {fontSize: 13, color: '#8D92A3', fontFamily: 'Poppins-Regular'},
   time: {fontSize: 10, color: '#8D92A3', fontFamily: 'Poppins-Regular'},
-  status: {fontSize: 10, color: '#D9435E', fontFamily: 'Poppins-Regular'},
+  status: status => ({
+    fontSize: 10,
+    color: status === 'CANCELLED' ? '#D9435E' : '#1abc9c',
+    fontFamily: 'Poppins-Regular',
+  }),
+  row: {flexDirection: 'row', alignItems: 'center'},
 });

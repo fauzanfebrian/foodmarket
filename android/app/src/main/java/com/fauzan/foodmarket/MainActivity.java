@@ -1,4 +1,4 @@
-package com.foodmarket;
+package com.fauzan.foodmarket;
 
 import com.facebook.react.ReactActivity;
 

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "react-native run-android --variant=release",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -11,6 +11,7 @@
     "emulator": "emulator -avd emulator_pixel"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.5",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-picker/picker": "^1.16.1",
     "@react-navigation/bottom-tabs": "^5.11.11",
@@ -28,6 +29,8 @@
     "react-native-screens": "^3.2.0",
     "react-native-svg": "^9.12.0",
     "react-native-tab-view": "^3.0.1",
+    "react-native-webview": "^11.6.4",
+    "react-number-format": "^4.6.3",
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0"

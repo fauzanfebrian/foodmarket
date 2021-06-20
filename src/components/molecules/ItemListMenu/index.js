@@ -2,9 +2,12 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {ICNext} from '../../../assets';
 
-const ItemListMenu = ({label}) => {
+const ItemListMenu = ({label, onPress}) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      activeOpacity={0.6}>
       <Text style={styles.label}>{label}</Text>
       <ICNext />
     </TouchableOpacity>

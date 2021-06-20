@@ -2,8 +2,8 @@ import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button, Gap, Header, Select, TextInput} from '../../components';
-import {setLoading, signUpAction} from '../../redux/action';
 import {useForm} from '../../utils';
+import {setLoading, signUpAction} from '../../redux/action';
 
 const SignUpAddress = ({navigation}) => {
   const {registerReducer, photoReducer} = useSelector(state => state);
@@ -14,9 +14,8 @@ const SignUpAddress = ({navigation}) => {
     houseNumber: '',
     city: 'Jakarta',
   });
+  const data = {...form, ...registerReducer};
   const onSubmit = () => {
-    const data = {...form, ...registerReducer};
-    dispatch(setLoading(true));
     dispatch(signUpAction(data, photoReducer, navigation));
   };
 

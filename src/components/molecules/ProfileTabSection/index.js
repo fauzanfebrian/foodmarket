@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {ScrollView, StyleSheet, Text, useWindowDimensions} from 'react-native';
@@ -6,7 +7,11 @@ import {Gap, ItemListMenu} from '../..';
 
 const Account = () => {
   const navigation = useNavigation();
-
+  const logout = () => {
+    AsyncStorage.multiRemove(['userProfile', 'token']).then(() => {
+      navigation.reset({index: 0, routes: [{name: 'SignIn'}]});
+    });
+  };
   return (
     <ScrollView style={styles.content}>
       <Gap height={16} />
@@ -14,12 +19,13 @@ const Account = () => {
       <ItemListMenu label="Home Address" />
       <ItemListMenu label="Security" />
       <ItemListMenu label="Payments" />
+      <ItemListMenu label="Logout" onPress={logout} />
     </ScrollView>
   );
 };
 
 const FoodMarket = () => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   return (
     <ScrollView style={styles.content}>
